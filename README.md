@@ -12,15 +12,14 @@ A single-page campaign site for the North South University's Central Social Welf
 ## Project Structure
 ```
 public/
-  Committe Member/   # JPEG portraits pulled into the leadership grid
-  gallery/           # Impact photography for the gallery + lightbox
-  program/           # Poster art for the flagship program timeline
-  icon/              # Contact icons used in the address cards
-  manifest.json      # (Optional) PWA/app metadata placeholder
-site/
-  index.html
-  styles.css
-  script.js
+   Committe Member/   # JPEG portraits pulled into the leadership grid
+   gallery/           # Impact photography for the gallery + lightbox
+   program/           # Poster art for the flagship program timeline
+   icon/              # Contact icons used in the address cards
+   manifest.json      # (Optional) PWA/app metadata placeholder
+index.html
+styles.css
+script.js
 ```
 
 ## Getting Started
@@ -33,9 +32,8 @@ site/
    ```bash
    npm install -g serve
    ```
-3. **Run the site** from the `site/` directory:
+3. **Run the site** from the project root:
    ```bash
-   cd site
    serve .
    ```
    Then open `http://localhost:3000` (or the port shown in the terminal).
@@ -43,13 +41,13 @@ site/
 > Tip: You can also double-click `site/index.html` to open it directly in a browser, but running through a local server ensures relative asset paths resolve exactly as they will in production.
 
 ## Updating Content
-- **Committee**: Drop new JPGs into `public/Committe Member/` and update the `committeePhotos`, `committeeNames`, and `leadershipRoles` arrays inside `site/script.js`.
+- **Committee**: Drop new JPGs into `public/Committe Member/` and update the `committeePhotos`, `committeeNames`, and `leadershipRoles` arrays inside `script.js`.
 - **Gallery**: Add JPGs to `public/gallery/` and extend the `galleryImages` array.
 - **Programs**: Add posters to `public/program/` and edit the `programs` array.
-- **Styling**: Adjust CSS variables in `site/styles.css` for typography, spacing, or palette tweaks.
+- **Styling**: Adjust CSS variables in `styles.css` for typography, spacing, or palette tweaks.
 
 ## Deployment
-Because the project is plain HTML/CSS/JS, any static host works (GitHub Pages, Netlify, Vercel, Cloudflare Pages, etc.). Deploy the `site/` directory as the web root and ensure the `public/` folder is preserved alongside it so relative paths remain valid.
+Because the project is plain HTML/CSS/JS, any static host works (GitHub Pages, Netlify, Vercel, Cloudflare Pages, etc.). Deploy the repository root as the web root and ensure the `public/` folder stays alongside `index.html` so every relative path resolves.
 
 ## License
 Released under the MIT License. See [LICENSE](LICENSE).
