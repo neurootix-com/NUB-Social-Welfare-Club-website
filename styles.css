@@ -212,7 +212,8 @@ nav a {
 }
 
 .hero h1 {
-  font-size: clamp(2.4rem, 5vw, 3.9rem);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.1;
   margin: 1rem 0 0.5rem;
 }
 
@@ -260,11 +261,15 @@ nav a {
 }
 
 .hero-card {
-  padding: 2.2rem;
+  padding: 2rem;
   box-shadow: none;
-  background-size: 100% 48%;
+  background-size: 100% 30%;
   background-position: bottom;
   background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2rem;
 }
 
 .hero-card small {
@@ -276,11 +281,11 @@ nav a {
 .hero-card ul {
   list-style: none;
   padding: 0;
-  margin: 1.5rem 0 0;
+  margin: 0;
 }
 
 .hero-card li {
-  padding: 0.65rem 0;
+  padding: 0.55rem 0;
   border-bottom: 1px solid var(--edge);
 }
 
@@ -501,12 +506,16 @@ nav a {
   object-fit: contain;
 }
 
-.contact-grid article p,
+.contact-grid article p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
 .contact-grid article a {
   margin: 0;
   color: var(--text-muted);
-  display: block;
-  overflow-wrap: anywhere;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .contact-cta {
