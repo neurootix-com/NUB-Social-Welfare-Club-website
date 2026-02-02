@@ -1,4 +1,4 @@
-// --- Data Sources ---
+// --- Data Sources (From your upload) ---
 const committeePhotos = [
   "471157659_122110132574662721_1167304852770550736_n.jpg",
   "471574375_122110132658662721_9022441313712698728_n.jpg",
@@ -112,36 +112,31 @@ const programs = [
   },
 ];
 
-// --- UI Logic ---
-
-const lightbox = {
-  root: document.querySelector(".lightbox"),
-  img: document.querySelector(".lightbox img"),
-  caption: document.querySelector(".lightbox-caption"),
-  closeBtn: document.querySelector(".lightbox-close"),
-  activeIndex: 0,
-};
+// --- Rendering Logic ---
 
 function renderCommittee() {
   const grid = document.getElementById("committee-grid");
   if (!grid) return;
+
   if (!committeeMembers.length) {
     grid.innerHTML = "<p>No committee portraits available.</p>";
     return;
   }
 
+  // Uses object-contain to ensure the full poster is visible
   grid.innerHTML = committeeMembers
     .map(
       (member, index) => `
-        <article class="reveal" style="transition-delay: ${index * 50}ms">
-          <img src="${member.photo}" alt="${member.name}" loading="lazy" />
-          
-          <div class="committee-info">
-            <h3>${member.name}</h3>
-            <p>${member.role}</p>
-          </div>
-        </article>
-      `,
+    <article class="reveal opacity-0 translate-y-4 transition-all duration-700 bg-panel rounded-[1.5rem] overflow-hidden shadow-sm border border-edge hover:shadow-xl hover:-translate-y-1 group" style="transition-delay: ${index * 50}ms">
+      <div class="bg-panel-soft aspect-[3/4] relative p-1">
+          <img src="${member.photo}" alt="${member.name}" class="w-full h-full object-contain rounded-xl" loading="lazy" />
+      </div>
+      <div class="p-5 bg-panel border-t border-edge text-center">
+        <h3 class="font-bold text-sm text-main truncate">${member.name}</h3>
+        <p class="text-[0.7rem] text-toasty uppercase tracking-widest mt-1 font-bold truncate opacity-90">${member.role}</p>
+      </div>
+    </article>
+  `,
     )
     .join("");
 }
@@ -153,18 +148,17 @@ function renderGallery() {
   grid.innerHTML = galleryImages
     .map(
       (image, index) => `
-        <button class="reveal" data-index="${index}" style="transition-delay: ${(index % 5) * 50}ms">
-          <img src="${image.src}" alt="${image.caption}" loading="lazy" />
-        </button>
-      `,
+    <button class="reveal opacity-0 scale-95 transition-all duration-700 relative w-full aspect-square rounded-[1.5rem] overflow-hidden group focus:outline-none focus:ring-2 focus:ring-toasty" data-index="${index}" style="transition-delay: ${(index % 5) * 50}ms">
+      <img src="${image.src}" alt="${image.caption}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+      <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+    </button>
+  `,
     )
     .join("");
 
-  grid.addEventListener("click", (event) => {
-    const target = event.target.closest("button[data-index]");
-    if (!target) return;
-    const idx = Number(target.dataset.index);
-    openLightbox(idx);
+  grid.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (btn) openLightbox(Number(btn.dataset.index));
   });
 }
 
@@ -175,178 +169,190 @@ function renderPrograms() {
   list.innerHTML = programs
     .map(
       (program, index) => `
-        <article class="program-card reveal">
-          <img src="${program.poster}" alt="${program.title}" loading="lazy" />
-          <div>
-            <p class="eyebrow">Initiative ${String(index + 1).padStart(2, "0")}</p>
-            <h3>${program.title}</h3>
-            <p>${program.summary}</p>
-          </div>
-        </article>
-      `,
+    <article class="reveal opacity-0 translate-y-4 transition-all duration-700 bg-panel p-6 md:p-8 rounded-[2rem] border border-edge shadow-sm hover:shadow-lg hover:border-toasty/30 grid md:grid-cols-[220px_1fr] gap-8 items-center group">
+      <div class="aspect-video md:aspect-[4/5] md:h-full rounded-2xl overflow-hidden bg-panel-soft border border-edge">
+          <img src="${program.poster}" alt="${program.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+      </div>
+      <div>
+        <span class="text-xs font-bold uppercase text-toasty tracking-widest block mb-2 opacity-80">Initiative ${String(index + 1).padStart(2, "0")}</span>
+        <h3 class="text-2xl font-bold mb-4 text-main">${program.title}</h3>
+        <p class="text-muted leading-relaxed">${program.summary}</p>
+      </div>
+    </article>
+  `,
     )
     .join("");
 }
 
-// Lightbox Logic
+// --- Mobile Navigation ---
+function initMobileMenu() {
+  const btn = document.getElementById("mobile-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const links = document.querySelectorAll(".mobile-link");
+
+  if (!btn || !menu) return;
+
+  const toggleMenu = () => {
+    const isOpen = !menu.classList.contains("translate-x-full");
+    if (isOpen) {
+      menu.classList.add("translate-x-full");
+      btn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      document.body.style.overflow = "";
+    } else {
+      menu.classList.remove("translate-x-full");
+      btn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      document.body.style.overflow = "hidden";
+    }
+  };
+
+  btn.addEventListener("click", toggleMenu);
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      menu.classList.add("translate-x-full");
+      btn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      document.body.style.overflow = "";
+    });
+  });
+}
+
+// --- Lightbox ---
+const lightbox = {
+  el: document.getElementById("lightbox"),
+  img: document.getElementById("lightbox-img"),
+  caption: document.getElementById("lightbox-caption"),
+  close: document.getElementById("lightbox-close"),
+  idx: 0,
+};
+
 function openLightbox(index) {
-  const item = galleryImages[index];
-  if (!item) return;
-  lightbox.activeIndex = index;
+  if (!galleryImages[index]) return;
+  lightbox.idx = index;
+  updateLightbox();
+  lightbox.el.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function updateLightbox() {
+  const item = galleryImages[lightbox.idx];
   lightbox.img.src = item.src;
-  lightbox.img.alt = item.caption;
   lightbox.caption.textContent = item.caption;
-  lightbox.root.classList.add("active");
-  lightbox.root.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden"; // Prevent background scrolling
 }
 
 function closeLightbox() {
-  lightbox.root.classList.remove("active");
-  lightbox.root.setAttribute("aria-hidden", "true");
+  lightbox.el.classList.add("hidden");
   document.body.style.overflow = "";
 }
 
-function navigateLightbox(direction) {
-  const total = galleryImages.length;
-  lightbox.activeIndex = (lightbox.activeIndex + direction + total) % total;
-  openLightbox(lightbox.activeIndex);
-}
+function initLightbox() {
+  if (!lightbox.el) return;
 
-function initLightboxControls() {
-  if (!lightbox.root) return;
-
-  lightbox.closeBtn?.addEventListener("click", closeLightbox);
-  lightbox.root.addEventListener("click", (event) => {
-    if (event.target === lightbox.root) closeLightbox();
+  lightbox.close.addEventListener("click", closeLightbox);
+  lightbox.el.addEventListener("click", (e) => {
+    if (e.target === lightbox.el) closeLightbox();
   });
 
   document.querySelectorAll(".nav-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      const dir = btn.dataset.dir === "next" ? 1 : -1;
-      navigateLightbox(dir);
+      const dir = Number(btn.dataset.dir);
+      const total = galleryImages.length;
+      lightbox.idx = (lightbox.idx + dir + total) % total;
+      updateLightbox();
     });
   });
 
-  document.addEventListener("keydown", (event) => {
-    if (!lightbox.root.classList.contains("active")) return;
-    if (event.key === "Escape") closeLightbox();
-    if (event.key === "ArrowRight") navigateLightbox(1);
-    if (event.key === "ArrowLeft") navigateLightbox(-1);
+  document.addEventListener("keydown", (e) => {
+    if (lightbox.el.classList.contains("hidden")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") {
+      const total = galleryImages.length;
+      lightbox.idx = (lightbox.idx + 1 + total) % total;
+      updateLightbox();
+    }
+    if (e.key === "ArrowLeft") {
+      const total = galleryImages.length;
+      lightbox.idx = (lightbox.idx - 1 + total) % total;
+      updateLightbox();
+    }
   });
 }
 
-// Animation Logic
-function initReveal() {
-  const observer = new IntersectionObserver(
+// --- Animations & Stats ---
+function initObservers() {
+  const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
+          entry.target.classList.remove(
+            "opacity-0",
+            "translate-y-8",
+            "scale-95",
+            "translate-y-4",
+          );
+          revealObserver.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.15, rootMargin: "0px 0px -50px 0px" },
+    { threshold: 0.1 },
   );
 
   document
     .querySelectorAll(".reveal")
-    .forEach((element) => observer.observe(element));
-}
+    .forEach((el) => revealObserver.observe(el));
 
-function initCounters() {
-  const counters = document.querySelectorAll(".stat");
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
         const target = entry.target;
-        const finalValue = Number(target.dataset.count || 0);
+        const count = Number(target.dataset.count);
         const duration = 2000;
-        const startTime = performance.now();
-
+        const start = performance.now();
         const animate = (time) => {
-          const progress = Math.min((time - startTime) / duration, 1);
-          // Easing function for smoother stop
-          const easeOut = 1 - Math.pow(1 - progress, 3);
-          target.textContent = Math.floor(easeOut * finalValue).toString();
-
+          const progress = Math.min((time - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          target.textContent = Math.floor(ease * count);
           if (progress < 1) requestAnimationFrame(animate);
         };
         requestAnimationFrame(animate);
-        observer.unobserve(target);
-      });
-    },
-    { threshold: 0.5 },
-  );
-
-  counters.forEach((counter) => observer.observe(counter));
-}
-
-// Mobile Menu
-function initMobileMenu() {
-  const toggle = document.querySelector(".mobile-toggle");
-  const navWrapper = document.querySelector(".nav-wrapper");
-  const links = document.querySelectorAll("nav a");
-
-  if (!toggle || !navWrapper) return;
-
-  toggle.addEventListener("click", () => {
-    const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-    toggle.setAttribute("aria-expanded", !isExpanded);
-    navWrapper.classList.toggle("active");
-    toggle.innerHTML = isExpanded
-      ? '<i class="fa-solid fa-bars"></i>'
-      : '<i class="fa-solid fa-xmark"></i>';
-  });
-
-  // Close menu when clicking a link
-  links.forEach((link) => {
-    link.addEventListener("click", () => {
-      navWrapper.classList.remove("active");
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        statObserver.unobserve(target);
+      }
     });
   });
+  document.querySelectorAll(".stat").forEach((el) => statObserver.observe(el));
 }
 
-function initThemeToggle() {
-  const toggle = document.querySelector(".theme-toggle");
-  if (!toggle) return;
-  const root = document.documentElement;
+// --- Theme Logic ---
+function initTheme() {
+  const btns = [
+    document.getElementById("theme-toggle"),
+    document.getElementById("mobile-theme-toggle"),
+  ];
+  const html = document.documentElement;
+  const icons = document.querySelectorAll(".fa-moon");
 
-  // Check system preference if no stored theme
-  const systemPrefersDark = window.matchMedia(
-    "(prefers-color-scheme: dark)",
-  ).matches;
-  const stored = localStorage.getItem("theme");
+  // Load preference
+  const isDark =
+    localStorage.theme === "dark" ||
+    (!("theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
+  if (isDark) html.classList.add("dark");
 
-  if (stored === "dark" || (!stored && systemPrefersDark)) {
-    root.setAttribute("data-theme", "dark");
-  }
-
-  const updateLabel = () => {
-    const isDark = root.getAttribute("data-theme") === "dark";
-    toggle.setAttribute("aria-pressed", String(isDark));
-    toggle.querySelector(".toggle-icon i").className = isDark
-      ? "fa-solid fa-sun"
-      : "fa-solid fa-moon";
+  // Update icons
+  const updateIcons = () => {
+    const darkActive = html.classList.contains("dark");
+    icons.forEach((icon) => {
+      icon.className = darkActive ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    });
   };
+  updateIcons();
 
-  updateLabel();
-
-  toggle.addEventListener("click", () => {
-    const isDark = root.getAttribute("data-theme") === "dark";
-    if (isDark) {
-      root.removeAttribute("data-theme");
-      localStorage.setItem("theme", "light");
-    } else {
-      root.setAttribute("data-theme", "dark");
-      localStorage.setItem("theme", "dark");
-    }
-    updateLabel();
+  btns.forEach((btn) => {
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      html.classList.toggle("dark");
+      localStorage.theme = html.classList.contains("dark") ? "dark" : "light";
+      updateIcons();
+    });
   });
 }
 
@@ -354,11 +360,11 @@ function init() {
   renderCommittee();
   renderGallery();
   renderPrograms();
-  initLightboxControls();
-  initReveal();
-  initCounters();
-  initThemeToggle();
   initMobileMenu();
+  initLightbox();
+  initObservers();
+  initTheme();
+  document.getElementById("year").textContent = new Date().getFullYear();
 }
 
 document.addEventListener("DOMContentLoaded", init);

@@ -1,321 +1,678 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+    />
     <title>NUB Central Social Welfare Club</title>
     <meta
       name="description"
-      content="NUB Central Social Welfare Club – a humanitarian student movement delivering responsible welfare initiatives across Bangladesh."
+      content="NUB Central Social Welfare Club – Humanitarian Student Movement."
     />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="styles.css" />
-    <!--favicon -->
     <link rel="icon" type="image/png" href="public/NCSW%20logo.jpg" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @theme {
+        --font-display: "Space Grotesk", system-ui, sans-serif;
+
+        /* Base Palette (Static Colors) */
+        --color-toasty: hsl(30, 53%, 68%);
+        --color-cold-brew: hsl(12, 42%, 27%);
+      }
+
+      /* CSS Variables for Dynamic Theme Switching */
+      @layer base {
+        :root {
+          /* Light Mode Default */
+          --bg-canvas: hsl(30, 30%, 97%);
+          --bg-panel: #ffffff;
+          --bg-panel-soft: hsl(30, 30%, 94%);
+          --text-main: hsl(24, 27%, 13%); /* espresso-noir */
+          --text-muted: hsla(24, 27%, 13%, 0.65);
+          --border-edge: hsla(24, 27%, 13%, 0.08);
+          --shadow-color: 29, 17, 9;
+        }
+
+        /* Dark Mode Overrides (Matches your uploaded css [data-theme="dark"]) */
+        .dark {
+          --bg-canvas: #0f0b08;
+          --bg-panel: #1a1410;
+          --bg-panel-soft: #241c16;
+          --text-main: #f0e6dd;
+          --text-muted: rgba(240, 230, 221, 0.65);
+          --border-edge: rgba(255, 255, 255, 0.08);
+          --shadow-color: 0, 0, 0;
+        }
+
+        body {
+          background-color: var(--bg-canvas);
+          color: var(--text-main);
+        }
+      }
+
+      /* Utilities using the dynamic variables */
+      .bg-panel {
+        background-color: var(--bg-panel);
+      }
+      .bg-panel-soft {
+        background-color: var(--bg-panel-soft);
+      }
+      .border-edge {
+        border-color: var(--border-edge);
+      }
+      .text-muted {
+        color: var(--text-muted);
+      }
+
+      /* Grain Texture */
+      .grain {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
   </head>
-  <body>
+  <body
+    class="font-display antialiased overflow-x-hidden selection:bg-toasty selection:text-white transition-colors duration-300"
+  >
     <div class="grain" aria-hidden="true"></div>
-    <div class="page">
-      <header class="top-bar">
-        <div class="brand">
-          <img
-            src="public/NCSW%20logo.jpg"
-            alt="NUB CSWC logo"
-            loading="lazy"
-          />
-          <div class="brand-text">
-            <p>NUB Central</p>
-            <strong>Social Welfare Club</strong>
-          </div>
-        </div>
 
-        <button
-          class="mobile-toggle"
-          aria-label="Toggle navigation"
-          aria-expanded="false"
-        >
-          <i class="fa-solid fa-bars"></i>
-        </button>
+    <nav
+      class="fixed top-0 w-full z-40 transition-all duration-300"
+      id="navbar"
+    >
+      <div
+        class="absolute inset-0 bg-panel/80 backdrop-blur-md border-b border-edge transition-colors duration-300"
+      ></div>
 
-        <div class="nav-wrapper">
-          <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#committee">Committee</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#programs">Programs</a>
-            <a href="#contact">Contact</a>
-          </nav>
-          <div class="header-actions">
-            <button class="theme-toggle" type="button" aria-pressed="false">
-              <span class="toggle-icon" aria-hidden="true"
-                ><i class="fa-solid fa-moon"></i
-              ></span>
-              <span class="visually-hidden">Toggle Dark Mode</span>
-            </button>
-            <a class="cta ghost small-hidden" href="#contact">Get Involved</a>
-          </div>
-        </div>
-      </header>
-
-      <main>
-        <section class="hero" id="home">
-          <div class="hero-copy reveal">
-            <p class="badge">Serving humanity with responsibility</p>
-            <h1>Empowering students to design welfare solutions.</h1>
-            <p class="hero-desc">
-              The club coordinates rapid relief, education access, mental health
-              support, and advocacy campaigns in partnership with communities
-              across Bangladesh.
-            </p>
-            <div class="hero-actions">
-              <a class="cta filled" href="#programs">Explore Programs</a>
-              <a class="cta link" href="#gallery"
-                >View Impact <i class="fa-solid fa-arrow-right"></i
-              ></a>
-            </div>
-            <div class="hero-stats">
-              <article>
-                <span class="stat" data-count="150">0</span>
-                <p>Active Volunteers</p>
-              </article>
-              <article>
-                <span class="stat" data-count="370">0</span>
-                <p>Families Supported</p>
-              </article>
-              <article>
-                <span class="stat" data-count="35">0</span>
-                <p>Community Drives</p>
-              </article>
-            </div>
-          </div>
-          <div class="hero-visual reveal delay-1">
-            <div class="hero-card">
-              <div class="card-header">
-                <span class="status-dot"></span>
-                <small>Current focus</small>
-              </div>
-              <h3>Winter Warmth Drive</h3>
-              <p>
-                Delivering blankets, nutrition packs, and medical support to
-                rural districts.
-              </p>
-              <ul class="feature-list">
-                <li>
-                  <i class="fa-solid fa-check"></i> Real-time volunteer shifts
-                </li>
-                <li><i class="fa-solid fa-check"></i> Logistics hotline</li>
-                <li><i class="fa-solid fa-check"></i> Impact reporting desk</li>
-              </ul>
-            </div>
-            <div class="hero-image">
-              <div class="hero-overlay glass">
-                <p>Community Dispatch</p>
-                <strong>Live | 08:30 PM</strong>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="section about" id="about">
-          <div class="section-heading reveal">
-            <p class="eyebrow">About the club</p>
-            <h2>Humanitarian leadership rooted in empathy.</h2>
-            <p>
-              We mobilize campus resources to co-create welfare initiatives:
-              emergency response, seasonal relief, digital literacy, health
-              camps, advocacy marches, and psychosocial care.
-            </p>
-          </div>
-          <div class="about-grid">
-            <article class="reveal">
-              <div class="icon-box">
-                <i class="fa-solid fa-hand-holding-heart"></i>
-              </div>
-              <h3>Mission</h3>
-              <p>
-                Champion dignity for marginalized communities through sustained
-                student-led action.
-              </p>
-            </article>
-            <article class="reveal delay-1">
-              <div class="icon-box">
-                <i class="fa-solid fa-scale-balanced"></i>
-              </div>
-              <h3>Values</h3>
-              <p>
-                Integrity, transparency, inclusive collaboration, and a culture
-                of care.
-              </p>
-            </article>
-            <article class="reveal delay-2">
-              <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
-              <h3>Impact</h3>
-              <p>
-                Emergency relief cells, winter warmth drives, health camps, and
-                advocacy coalitions.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section class="section committee" id="committee">
-          <div class="section-heading reveal">
-            <p class="eyebrow">Leadership</p>
-            <h2>Executive Committee</h2>
-            <p>Meet the dedicated team driving our initiatives forward.</p>
-          </div>
-          <div id="committee-grid" class="committee-grid"></div>
-        </section>
-
-        <section class="section gallery" id="gallery">
-          <div class="section-heading reveal">
-            <p class="eyebrow">Gallery</p>
-            <h2>Moments from the field</h2>
-            <p>Tap any card to view full resolution photography.</p>
-          </div>
-          <div id="gallery-grid" class="gallery-grid"></div>
-        </section>
-
-        <section class="section programs" id="programs">
-          <div class="section-heading reveal">
-            <p class="eyebrow">Programs</p>
-            <h2>Flagship initiatives</h2>
-            <p>Our ongoing and upcoming major welfare projects.</p>
-          </div>
-          <div id="program-timeline" class="program-timeline"></div>
-        </section>
-
-        <section class="section contact" id="contact">
-          <div class="contact-shell">
-            <div class="contact-text reveal">
-              <p class="eyebrow">Contact & location</p>
-              <h2>Reach the welfare desk</h2>
-              <p>
-                Coordinate relief, volunteer, or request support through the
-                club&apos;s central desk. We respond within one business day.
-              </p>
-            </div>
-            <div class="contact-wrapper">
-              <div class="contact-grid">
-                <article class="reveal">
-                  <span class="icon">
-                    <img
-                      src="public/icon/2991231.png"
-                      alt=""
-                      aria-hidden="true"
-                      loading="lazy"
-                    />
-                  </span>
-                  <div>
-                    <h3>Address</h3>
-                    <p>Ashiyan City Road, Dhaka, Bangladesh</p>
-                  </div>
-                </article>
-                <article class="reveal delay-1">
-                  <span class="icon">
-                    <img
-                      src="public/icon/Gmail_Logo_512px.png"
-                      alt=""
-                      aria-hidden="true"
-                      loading="lazy"
-                    />
-                  </span>
-                  <div>
-                    <h3>Email</h3>
-                    <a href="mailto:nubcentralsocialwelfareclub@gmail.com"
-                      >nubcentralsocialwelfareclub@gmail.com</a
-                    >
-                  </div>
-                </article>
-                <article class="reveal delay-2">
-                  <span class="icon">
-                    <img
-                      src="public/icon/Facebook_Logo_2023.png"
-                      alt=""
-                      aria-hidden="true"
-                      loading="lazy"
-                    />
-                  </span>
-                  <div>
-                    <h3>Facebook</h3>
-                    <a
-                      href="https://www.facebook.com/profile.php?id=61569881647847"
-                      target="_blank"
-                      rel="noreferrer"
-                      >NUB Central Social Welfare Club</a
-                    >
-                  </div>
-                </article>
-              </div>
-              <div class="contact-cta reveal">
-                <p>Ready to make a difference?</p>
-                <h3>Join the movement today.</h3>
-                <a
-                  class="cta filled"
-                  href="mailto:nubcentralsocialwelfareclub@gmail.com"
-                  >Schedule a briefing</a
-                >
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer class="site-footer">
-        <div class="footer-content">
-          <div class="footer-brand">
-            <p class="footer-logo-text">NUB CSWC</p>
-            <small>&copy; 2026. All rights reserved.</small>
-          </div>
-          <div class="footer-credits">
-            <p>
-              Developed by
-              <a href="https://neurootix.com/" target="_blank" rel="noreferrer"
-                >Neurootix</a
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="flex items-center justify-between h-20">
+          <div class="flex items-center gap-3">
+            <img
+              src="public/NCSW%20logo.jpg"
+              alt="Logo"
+              class="w-10 h-10 rounded-xl shadow-sm object-cover"
+            />
+            <div class="leading-none">
+              <p
+                class="text-[0.65rem] font-bold uppercase tracking-[0.2em] opacity-60 mb-0.5"
               >
-            </p>
-            <small
-              ><i>A VIRTUAL DEEP TECH FIRM DRIVING FUTURE INNOVATION</i></small
-            >
+                NUB Central
+              </p>
+              <strong class="text-lg block font-bold tracking-tight"
+                >Social Welfare Club</strong
+              >
+            </div>
           </div>
-        </div>
-        <img
-          src="public/neurootix-logo.png"
-          alt="Neurootix logo"
-          class="neurootix-logo"
-          loading="lazy"
-        />
-      </footer>
-    </div>
 
-    <div class="lightbox" aria-hidden="true">
-      <button class="lightbox-close" aria-label="Close gallery preview">
-        &times;
-      </button>
-      <div class="lightbox-frame">
-        <img src="" alt="Gallery preview" />
-        <p class="lightbox-caption"></p>
-        <div class="lightbox-nav">
-          <button class="nav-btn" data-dir="prev" aria-label="Previous image">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <button class="nav-btn" data-dir="next" aria-label="Next image">
-            <i class="fa-solid fa-chevron-right"></i>
+          <div class="hidden md:flex items-center gap-8 font-medium text-sm">
+            <a href="#home" class="hover:text-toasty transition-colors">Home</a>
+            <a href="#about" class="hover:text-toasty transition-colors"
+              >About</a
+            >
+            <a href="#committee" class="hover:text-toasty transition-colors"
+              >Committee</a
+            >
+            <a href="#gallery" class="hover:text-toasty transition-colors"
+              >Gallery</a
+            >
+            <a href="#programs" class="hover:text-toasty transition-colors"
+              >Programs</a
+            >
+
+            <div class="pl-4 border-l border-edge flex items-center gap-4">
+              <button
+                id="theme-toggle"
+                class="w-9 h-9 rounded-full hover:bg-panel-soft flex items-center justify-center transition-colors cursor-pointer border border-transparent hover:border-edge"
+              >
+                <i class="fa-solid fa-moon"></i>
+              </button>
+              <a
+                href="#contact"
+                class="px-6 py-2.5 rounded-full bg-toasty/10 text-toasty border border-toasty/20 hover:bg-toasty hover:text-white transition-all font-bold text-xs uppercase tracking-wide"
+              >
+                Get Involved
+              </a>
+            </div>
+          </div>
+
+          <button
+            id="mobile-toggle"
+            class="md:hidden text-2xl p-2 cursor-pointer z-50 relative active:scale-95 transition-transform"
+          >
+            <i class="fa-solid fa-bars"></i>
           </button>
         </div>
       </div>
+    </nav>
+
+    <div
+      id="mobile-menu"
+      class="fixed inset-0 z-40 bg-panel translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] flex flex-col pt-24 px-8 md:hidden shadow-2xl"
+    >
+      <div class="flex flex-col gap-6 text-2xl font-bold">
+        <a
+          href="#home"
+          class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
+        >
+          Home
+          <i
+            class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
+          ></i>
+        </a>
+        <a
+          href="#about"
+          class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
+        >
+          About
+          <i
+            class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
+          ></i>
+        </a>
+        <a
+          href="#committee"
+          class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
+        >
+          Committee
+          <i
+            class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
+          ></i>
+        </a>
+        <a
+          href="#gallery"
+          class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
+        >
+          Gallery
+          <i
+            class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
+          ></i>
+        </a>
+        <a
+          href="#programs"
+          class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
+        >
+          Programs
+          <i
+            class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
+          ></i>
+        </a>
+      </div>
+
+      <div class="mt-auto mb-10">
+        <div
+          class="flex items-center justify-between bg-panel-soft p-4 rounded-2xl border border-edge"
+        >
+          <span class="text-sm font-bold opacity-70">Switch Theme</span>
+          <button
+            id="mobile-theme-toggle"
+            class="w-12 h-12 bg-panel rounded-full flex items-center justify-center text-xl shadow-sm border border-edge text-toasty"
+          >
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+        <a
+          href="#contact"
+          class="mobile-link mt-4 block w-full py-4 bg-cold-brew text-white text-center rounded-2xl font-bold uppercase tracking-wider shadow-lg shadow-cold-brew/20"
+          >Contact Us</a
+        >
+      </div>
     </div>
 
-    <script src="script.js" defer></script>
+    <main
+      class="relative z-10 pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-24"
+    >
+      <section
+        id="home"
+        class="grid lg:grid-cols-2 gap-12 items-center py-8 md:py-16"
+      >
+        <div class="reveal opacity-0 translate-y-8">
+          <span
+            class="inline-block px-4 py-1.5 rounded-full bg-toasty/10 text-toasty text-xs font-bold uppercase tracking-widest mb-8 border border-toasty/20 backdrop-blur-sm"
+          >
+            Serving humanity with responsibility
+          </span>
+          <h1
+            class="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] mb-8 tracking-tight"
+          >
+            Empowering students to design solutions.
+          </h1>
+          <p
+            class="text-lg text-muted max-w-lg mb-10 leading-relaxed font-medium"
+          >
+            The club coordinates rapid relief, education access, mental health
+            support, and advocacy campaigns in partnership with communities.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 mb-14">
+            <a
+              href="#programs"
+              class="bg-cold-brew text-white px-8 py-4 rounded-full font-bold hover:translate-y-[-2px] hover:shadow-xl hover:shadow-cold-brew/30 transition-all text-center"
+            >
+              Explore Programs
+            </a>
+            <a
+              href="#gallery"
+              class="flex items-center justify-center gap-3 px-8 py-4 rounded-full font-bold text-toasty border border-edge bg-panel hover:bg-panel-soft transition-colors"
+            >
+              View Impact <i class="fa-solid fa-arrow-right text-sm"></i>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-8 border-t border-edge pt-8">
+            <div>
+              <span
+                class="stat text-4xl font-bold text-toasty block mb-1"
+                data-count="150"
+                >0</span
+              >
+              <span
+                class="text-[0.65rem] uppercase tracking-widest font-bold opacity-50"
+                >Volunteers</span
+              >
+            </div>
+            <div>
+              <span
+                class="stat text-4xl font-bold text-toasty block mb-1"
+                data-count="370"
+                >0</span
+              >
+              <span
+                class="text-[0.65rem] uppercase tracking-widest font-bold opacity-50"
+                >Families</span
+              >
+            </div>
+            <div>
+              <span
+                class="stat text-4xl font-bold text-toasty block mb-1"
+                data-count="35"
+                >0</span
+              >
+              <span
+                class="text-[0.65rem] uppercase tracking-widest font-bold opacity-50"
+                >Drives</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="reveal delay-100 opacity-0 translate-y-8 relative mx-auto w-full max-w-md lg:max-w-none"
+        >
+          <div
+            class="bg-panel rounded-[2.5rem] p-6 shadow-2xl shadow-[rgba(var(--shadow-color),0.1)] border border-edge relative z-10"
+          >
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-2">
+                <span
+                  class="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_0_4px_rgba(34,197,94,0.15)] animate-pulse"
+                ></span>
+                <span
+                  class="text-xs font-bold uppercase tracking-wider opacity-60"
+                  >Current Focus</span
+                >
+              </div>
+              <span class="text-xs font-mono opacity-40">#NCSW-2026</span>
+            </div>
+
+            <h3 class="text-2xl font-bold mb-2">Winter Warmth Drive</h3>
+            <p class="text-muted mb-6 text-sm">
+              Delivering blankets, nutrition packs, and medical support to rural
+              districts.
+            </p>
+
+            <div
+              class="h-64 rounded-2xl bg-panel-soft overflow-hidden relative mb-6 group border border-edge"
+            >
+              <img
+                src="public/nico-smit-NFoerQuvzrs-unsplash.jpg"
+                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                alt="Winter drive"
+              />
+              <div
+                class="absolute bottom-3 left-3 bg-panel/90 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm border border-edge flex items-center gap-2"
+              >
+                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Live |
+                08:30 PM
+              </div>
+            </div>
+
+            <ul class="space-y-4">
+              <li class="flex items-center gap-3 text-sm text-muted">
+                <div
+                  class="w-6 h-6 rounded-full bg-toasty/10 flex items-center justify-center text-toasty text-xs"
+                >
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                Real-time volunteer shifts
+              </li>
+              <li class="flex items-center gap-3 text-sm text-muted">
+                <div
+                  class="w-6 h-6 rounded-full bg-toasty/10 flex items-center justify-center text-toasty text-xs"
+                >
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                Logistics hotline
+              </li>
+              <li class="flex items-center gap-3 text-sm text-muted">
+                <div
+                  class="w-6 h-6 rounded-full bg-toasty/10 flex items-center justify-center text-toasty text-xs"
+                >
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                Impact reporting desk
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="absolute -top-12 -right-12 w-64 h-64 bg-toasty/20 rounded-full blur-[80px] -z-10 mix-blend-multiply dark:mix-blend-screen opacity-50"
+          ></div>
+          <div
+            class="absolute -bottom-12 -left-12 w-64 h-64 bg-cold-brew/10 rounded-full blur-[80px] -z-10 mix-blend-multiply dark:mix-blend-screen opacity-50"
+          ></div>
+        </div>
+      </section>
+
+      <section id="about" class="py-12">
+        <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+          <p
+            class="text-toasty text-xs font-bold uppercase tracking-[0.25em] mb-4"
+          >
+            About the club
+          </p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+            Humanitarian leadership rooted in empathy.
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <article
+            class="bg-panel p-10 rounded-[2rem] border border-edge shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 reveal group"
+          >
+            <div
+              class="w-14 h-14 bg-panel-soft rounded-2xl flex items-center justify-center text-cold-brew text-2xl mb-8 group-hover:scale-110 transition-transform duration-500"
+            >
+              <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Mission</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              Champion dignity for marginalized communities through sustained
+              student-led action.
+            </p>
+          </article>
+
+          <article
+            class="bg-panel p-10 rounded-[2rem] border border-edge shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 reveal delay-100 group"
+          >
+            <div
+              class="w-14 h-14 bg-panel-soft rounded-2xl flex items-center justify-center text-cold-brew text-2xl mb-8 group-hover:scale-110 transition-transform duration-500"
+            >
+              <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Values</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              Integrity, transparency, inclusive collaboration, and a culture of
+              care.
+            </p>
+          </article>
+
+          <article
+            class="bg-panel p-10 rounded-[2rem] border border-edge shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 reveal delay-200 group"
+          >
+            <div
+              class="w-14 h-14 bg-panel-soft rounded-2xl flex items-center justify-center text-cold-brew text-2xl mb-8 group-hover:scale-110 transition-transform duration-500"
+            >
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-4">Impact</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              Emergency relief cells, winter warmth drives, health camps, and
+              advocacy coalitions.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="committee" class="py-12">
+        <div class="text-center mb-16 reveal">
+          <p
+            class="text-toasty text-xs font-bold uppercase tracking-[0.25em] mb-4"
+          >
+            Leadership
+          </p>
+          <h2 class="text-3xl md:text-4xl font-bold">Executive Committee</h2>
+        </div>
+        <div
+          id="committee-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        ></div>
+      </section>
+
+      <section id="gallery" class="py-12">
+        <div class="text-center mb-16 reveal">
+          <p
+            class="text-toasty text-xs font-bold uppercase tracking-[0.25em] mb-4"
+          >
+            Gallery
+          </p>
+          <h2 class="text-3xl md:text-4xl font-bold">Moments from the field</h2>
+        </div>
+        <div
+          id="gallery-grid"
+          class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
+        ></div>
+      </section>
+
+      <section id="programs" class="py-12">
+        <div class="text-center mb-16 reveal">
+          <p
+            class="text-toasty text-xs font-bold uppercase tracking-[0.25em] mb-4"
+          >
+            Programs
+          </p>
+          <h2 class="text-3xl md:text-4xl font-bold">Flagship Initiatives</h2>
+        </div>
+        <div
+          id="program-timeline"
+          class="flex flex-col gap-6 max-w-4xl mx-auto"
+        ></div>
+      </section>
+
+      <section id="contact" class="py-12 mb-12">
+        <div
+          class="bg-panel rounded-[3rem] p-8 md:p-20 border border-edge shadow-2xl shadow-[rgba(var(--shadow-color),0.05)] overflow-hidden relative reveal"
+        >
+          <div class="grid md:grid-cols-2 gap-16 relative z-10">
+            <div>
+              <p
+                class="text-toasty text-xs font-bold uppercase tracking-widest mb-4"
+              >
+                Contact & Location
+              </p>
+              <h2 class="text-3xl md:text-5xl font-bold mb-8">
+                Reach the welfare desk.
+              </h2>
+              <p class="text-muted mb-10 text-lg">
+                Coordinate relief, volunteer, or request support through the
+                club's central desk. We respond within one business day.
+              </p>
+
+              <div class="space-y-8">
+                <div class="flex items-center gap-5 group">
+                  <div
+                    class="w-14 h-14 rounded-full bg-panel-soft flex items-center justify-center flex-shrink-0 group-hover:bg-toasty/20 transition-colors border border-edge"
+                  >
+                    <img
+                      src="public/icon/2991231.png"
+                      class="w-6 opacity-70"
+                      alt="Location"
+                    />
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm mb-1">Address</h4>
+                    <p class="text-muted text-sm">
+                      Ashiyan City Road, Dhaka, Bangladesh
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-5 group">
+                  <div
+                    class="w-14 h-14 rounded-full bg-panel-soft flex items-center justify-center flex-shrink-0 group-hover:bg-toasty/20 transition-colors border border-edge"
+                  >
+                    <img
+                      src="public/icon/Gmail_Logo_512px.png"
+                      class="w-6"
+                      alt="Email"
+                    />
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm mb-1">Email</h4>
+                    <a
+                      href="mailto:nubcentralsocialwelfareclub@gmail.com"
+                      class="text-muted text-sm hover:text-toasty transition-colors"
+                      >nubcentralsocialwelfareclub@gmail.com</a
+                    >
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-5 group">
+                  <div
+                    class="w-14 h-14 rounded-full bg-panel-soft flex items-center justify-center flex-shrink-0 group-hover:bg-toasty/20 transition-colors border border-edge"
+                  >
+                    <img
+                      src="public/icon/Facebook_Logo_2023.png"
+                      class="w-6"
+                      alt="Facebook"
+                    />
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-sm mb-1">Facebook</h4>
+                    <a
+                      href="https://www.facebook.com/profile.php?id=61569881647847"
+                      target="_blank"
+                      class="text-muted text-sm hover:text-toasty transition-colors"
+                      >NUB Central Social Welfare Club</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-panel-soft/50 rounded-[2.5rem] p-10 flex flex-col items-center justify-center text-center border border-edge"
+            >
+              <p
+                class="text-sm font-bold opacity-50 mb-4 uppercase tracking-widest"
+              >
+                Make a difference
+              </p>
+              <h3 class="text-3xl font-bold mb-8">Join the movement today.</h3>
+              <a
+                href="mailto:nubcentralsocialwelfareclub@gmail.com"
+                class="bg-cold-brew text-white px-10 py-4 rounded-full font-bold hover:shadow-xl hover:shadow-cold-brew/30 hover:-translate-y-1 transition-all w-full md:w-auto"
+              >
+                Schedule a Briefing
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-edge py-12 bg-panel">
+      <div
+        class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6"
+      >
+        <div class="text-center md:text-left">
+          <p class="font-bold text-lg mb-1">NUB CSWC</p>
+          <small class="text-muted block"
+            >&copy; <span id="year">2026</span> All rights reserved.</small
+          >
+        </div>
+        <div
+          class="flex flex-col items-center md:items-end opacity-70 hover:opacity-100 transition-opacity"
+        >
+          <p class="text-xs text-muted">
+            Developed by
+            <a
+              href="https://neurootix.com/"
+              class="hover:text-toasty font-bold transition-colors"
+              >Neurootix</a
+            >
+          </p>
+          <small class="text-[0.6rem] tracking-widest uppercase mt-1 opacity-60"
+            >Virtual Deep Tech Firm</small
+          >
+        </div>
+      </div>
+      <img
+        src="public/neurootix-logo.png"
+        alt="Neurootix logo"
+        class="h-16 mx-auto mt-12 opacity-10 mix-blend-multiply dark:mix-blend-screen"
+      />
+    </footer>
+
+    <div
+      id="lightbox"
+      class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex items-center justify-center p-4"
+    >
+      <button
+        id="lightbox-close"
+        class="absolute top-6 right-6 w-12 h-12 bg-white/10 rounded-full text-white flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer"
+      >
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+      <div class="relative w-full max-w-4xl flex flex-col items-center">
+        <img
+          id="lightbox-img"
+          src=""
+          class="max-h-[85vh] rounded-lg shadow-2xl border border-white/10"
+          alt=""
+        />
+        <p
+          id="lightbox-caption"
+          class="text-white/80 mt-6 text-sm font-medium tracking-wide"
+        ></p>
+
+        <button
+          class="nav-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-12 w-14 h-14 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors cursor-pointer"
+          data-dir="-1"
+        >
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button
+          class="nav-btn absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-12 w-14 h-14 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors cursor-pointer"
+          data-dir="1"
+        >
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
   </body>
 </html>
