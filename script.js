@@ -1,4 +1,4 @@
-// --- Data Sources (From your upload) ---
+// --- Data Sources ---
 const committeePhotos = [
   "471157659_122110132574662721_1167304852770550736_n.jpg",
   "471574375_122110132658662721_9022441313712698728_n.jpg",
@@ -123,7 +123,6 @@ function renderCommittee() {
     return;
   }
 
-  // Uses object-contain to ensure the full poster is visible
   grid.innerHTML = committeeMembers
     .map(
       (member, index) => `
@@ -328,7 +327,7 @@ function initTheme() {
     document.getElementById("mobile-theme-toggle"),
   ];
   const html = document.documentElement;
-  const icons = document.querySelectorAll(".fa-moon");
+  const icons = document.querySelectorAll(".fa-moon, .fa-sun");
 
   // Load preference
   const isDark =
@@ -341,6 +340,7 @@ function initTheme() {
   const updateIcons = () => {
     const darkActive = html.classList.contains("dark");
     icons.forEach((icon) => {
+      // Check specific class to preserve the icon type (moon/sun) logic
       icon.className = darkActive ? "fa-solid fa-sun" : "fa-solid fa-moon";
     });
   };

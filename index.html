@@ -30,26 +30,23 @@
     <style type="text/tailwindcss">
       @theme {
         --font-display: "Space Grotesk", system-ui, sans-serif;
-
-        /* Base Palette (Static Colors) */
         --color-toasty: hsl(30, 53%, 68%);
         --color-cold-brew: hsl(12, 42%, 27%);
       }
 
-      /* CSS Variables for Dynamic Theme Switching */
       @layer base {
         :root {
-          /* Light Mode Default */
+          /* Light Mode Variables */
           --bg-canvas: hsl(30, 30%, 97%);
           --bg-panel: #ffffff;
           --bg-panel-soft: hsl(30, 30%, 94%);
-          --text-main: hsl(24, 27%, 13%); /* espresso-noir */
+          --text-main: hsl(24, 27%, 13%);
           --text-muted: hsla(24, 27%, 13%, 0.65);
           --border-edge: hsla(24, 27%, 13%, 0.08);
           --shadow-color: 29, 17, 9;
         }
 
-        /* Dark Mode Overrides (Matches your uploaded css [data-theme="dark"]) */
+        /* Dark Mode Variables */
         .dark {
           --bg-canvas: #0f0b08;
           --bg-panel: #1a1410;
@@ -66,7 +63,6 @@
         }
       }
 
-      /* Utilities using the dynamic variables */
       .bg-panel {
         background-color: var(--bg-panel);
       }
@@ -80,7 +76,6 @@
         color: var(--text-muted);
       }
 
-      /* Grain Texture */
       .grain {
         position: fixed;
         inset: 0;
@@ -107,7 +102,6 @@
       <div
         class="absolute inset-0 bg-panel/80 backdrop-blur-md border-b border-edge transition-colors duration-300"
       ></div>
-
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div class="flex items-center justify-between h-20">
           <div class="flex items-center gap-3">
@@ -142,7 +136,6 @@
             <a href="#programs" class="hover:text-toasty transition-colors"
               >Programs</a
             >
-
             <div class="pl-4 border-l border-edge flex items-center gap-4">
               <button
                 id="theme-toggle"
@@ -177,50 +170,44 @@
         <a
           href="#home"
           class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
-        >
-          Home
+          >Home
           <i
             class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
-          ></i>
-        </a>
+          ></i
+        ></a>
         <a
           href="#about"
           class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
-        >
-          About
+          >About
           <i
             class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
-          ></i>
-        </a>
+          ></i
+        ></a>
         <a
           href="#committee"
           class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
-        >
-          Committee
+          >Committee
           <i
             class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
-          ></i>
-        </a>
+          ></i
+        ></a>
         <a
           href="#gallery"
           class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
-        >
-          Gallery
+          >Gallery
           <i
             class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
-          ></i>
-        </a>
+          ></i
+        ></a>
         <a
           href="#programs"
           class="mobile-link py-3 border-b border-edge flex justify-between items-center group"
-        >
-          Programs
+          >Programs
           <i
             class="fa-solid fa-arrow-right -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all text-toasty text-lg"
-          ></i>
-        </a>
+          ></i
+        ></a>
       </div>
-
       <div class="mt-auto mb-10">
         <div
           class="flex items-center justify-between bg-panel-soft p-4 rounded-2xl border border-edge"
@@ -263,22 +250,20 @@
             class="text-lg text-muted max-w-lg mb-10 leading-relaxed font-medium"
           >
             The club coordinates rapid relief, education access, mental health
-            support, and advocacy campaigns in partnership with communities.
+            support, and advocacy campaigns.
           </p>
 
           <div class="flex flex-col sm:flex-row gap-4 mb-14">
             <a
               href="#programs"
               class="bg-cold-brew text-white px-8 py-4 rounded-full font-bold hover:translate-y-[-2px] hover:shadow-xl hover:shadow-cold-brew/30 transition-all text-center"
+              >Explore Programs</a
             >
-              Explore Programs
-            </a>
             <a
               href="#gallery"
               class="flex items-center justify-center gap-3 px-8 py-4 rounded-full font-bold text-toasty border border-edge bg-panel hover:bg-panel-soft transition-colors"
-            >
-              View Impact <i class="fa-solid fa-arrow-right text-sm"></i>
-            </a>
+              >View Impact <i class="fa-solid fa-arrow-right text-sm"></i
+            ></a>
           </div>
 
           <div class="grid grid-cols-3 gap-8 border-t border-edge pt-8">
@@ -287,8 +272,7 @@
                 class="stat text-4xl font-bold text-toasty block mb-1"
                 data-count="150"
                 >0</span
-              >
-              <span
+              ><span
                 class="text-[0.65rem] uppercase tracking-widest font-bold opacity-50"
                 >Volunteers</span
               >
@@ -298,8 +282,7 @@
                 class="stat text-4xl font-bold text-toasty block mb-1"
                 data-count="370"
                 >0</span
-              >
-              <span
+              ><span
                 class="text-[0.65rem] uppercase tracking-widest font-bold opacity-50"
                 >Families</span
               >
@@ -309,8 +292,7 @@
                 class="stat text-4xl font-bold text-toasty block mb-1"
                 data-count="35"
                 >0</span
-              >
-              <span
+              ><span
                 class="text-[0.65rem] uppercase tracking-widest font-bold opacity-50"
                 >Drives</span
               >
@@ -336,13 +318,11 @@
               </div>
               <span class="text-xs font-mono opacity-40">#NCSW-2026</span>
             </div>
-
             <h3 class="text-2xl font-bold mb-2">Winter Warmth Drive</h3>
             <p class="text-muted mb-6 text-sm">
               Delivering blankets, nutrition packs, and medical support to rural
               districts.
             </p>
-
             <div
               class="h-64 rounded-2xl bg-panel-soft overflow-hidden relative mb-6 group border border-edge"
             >
@@ -358,7 +338,6 @@
                 08:30 PM
               </div>
             </div>
-
             <ul class="space-y-4">
               <li class="flex items-center gap-3 text-sm text-muted">
                 <div
@@ -386,12 +365,8 @@
               </li>
             </ul>
           </div>
-
           <div
             class="absolute -top-12 -right-12 w-64 h-64 bg-toasty/20 rounded-full blur-[80px] -z-10 mix-blend-multiply dark:mix-blend-screen opacity-50"
-          ></div>
-          <div
-            class="absolute -bottom-12 -left-12 w-64 h-64 bg-cold-brew/10 rounded-full blur-[80px] -z-10 mix-blend-multiply dark:mix-blend-screen opacity-50"
           ></div>
         </div>
       </section>
@@ -407,7 +382,6 @@
             Humanitarian leadership rooted in empathy.
           </h2>
         </div>
-
         <div class="grid md:grid-cols-3 gap-6">
           <article
             class="bg-panel p-10 rounded-[2rem] border border-edge shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 reveal group"
@@ -423,7 +397,6 @@
               student-led action.
             </p>
           </article>
-
           <article
             class="bg-panel p-10 rounded-[2rem] border border-edge shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 reveal delay-100 group"
           >
@@ -438,7 +411,6 @@
               care.
             </p>
           </article>
-
           <article
             class="bg-panel p-10 rounded-[2rem] border border-edge shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500 reveal delay-200 group"
           >
@@ -503,10 +475,10 @@
 
       <section id="contact" class="py-12 mb-12">
         <div
-          class="bg-panel rounded-[3rem] p-8 md:p-20 border border-edge shadow-2xl shadow-[rgba(var(--shadow-color),0.05)] overflow-hidden relative reveal"
+          class="bg-panel rounded-[3rem] p-6 md:p-20 border border-edge shadow-2xl shadow-[rgba(var(--shadow-color),0.05)] overflow-hidden relative reveal"
         >
-          <div class="grid md:grid-cols-2 gap-16 relative z-10">
-            <div>
+          <div class="grid md:grid-cols-2 gap-10 md:gap-16 relative z-10">
+            <div class="w-full">
               <p
                 class="text-toasty text-xs font-bold uppercase tracking-widest mb-4"
               >
@@ -517,11 +489,11 @@
               </h2>
               <p class="text-muted mb-10 text-lg">
                 Coordinate relief, volunteer, or request support through the
-                club's central desk. We respond within one business day.
+                club's central desk.
               </p>
 
               <div class="space-y-8">
-                <div class="flex items-center gap-5 group">
+                <div class="flex items-center gap-5 group w-full">
                   <div
                     class="w-14 h-14 rounded-full bg-panel-soft flex items-center justify-center flex-shrink-0 group-hover:bg-toasty/20 transition-colors border border-edge"
                   >
@@ -531,15 +503,15 @@
                       alt="Location"
                     />
                   </div>
-                  <div>
+                  <div class="min-w-0">
                     <h4 class="font-bold text-sm mb-1">Address</h4>
-                    <p class="text-muted text-sm">
+                    <p class="text-muted text-sm break-words">
                       Ashiyan City Road, Dhaka, Bangladesh
                     </p>
                   </div>
                 </div>
 
-                <div class="flex items-center gap-5 group">
+                <div class="flex items-center gap-5 group w-full">
                   <div
                     class="w-14 h-14 rounded-full bg-panel-soft flex items-center justify-center flex-shrink-0 group-hover:bg-toasty/20 transition-colors border border-edge"
                   >
@@ -549,17 +521,17 @@
                       alt="Email"
                     />
                   </div>
-                  <div>
+                  <div class="min-w-0 flex-1">
                     <h4 class="font-bold text-sm mb-1">Email</h4>
                     <a
                       href="mailto:nubcentralsocialwelfareclub@gmail.com"
-                      class="text-muted text-sm hover:text-toasty transition-colors"
+                      class="text-muted text-sm hover:text-toasty transition-colors break-all"
                       >nubcentralsocialwelfareclub@gmail.com</a
                     >
                   </div>
                 </div>
 
-                <div class="flex items-center gap-5 group">
+                <div class="flex items-center gap-5 group w-full">
                   <div
                     class="w-14 h-14 rounded-full bg-panel-soft flex items-center justify-center flex-shrink-0 group-hover:bg-toasty/20 transition-colors border border-edge"
                   >
@@ -569,12 +541,12 @@
                       alt="Facebook"
                     />
                   </div>
-                  <div>
+                  <div class="min-w-0">
                     <h4 class="font-bold text-sm mb-1">Facebook</h4>
                     <a
                       href="https://www.facebook.com/profile.php?id=61569881647847"
                       target="_blank"
-                      class="text-muted text-sm hover:text-toasty transition-colors"
+                      class="text-muted text-sm hover:text-toasty transition-colors break-words"
                       >NUB Central Social Welfare Club</a
                     >
                   </div>
@@ -583,7 +555,7 @@
             </div>
 
             <div
-              class="bg-panel-soft/50 rounded-[2.5rem] p-10 flex flex-col items-center justify-center text-center border border-edge"
+              class="bg-panel-soft/50 rounded-[2.5rem] p-8 md:p-10 flex flex-col items-center justify-center text-center border border-edge"
             >
               <p
                 class="text-sm font-bold opacity-50 mb-4 uppercase tracking-widest"
@@ -605,9 +577,9 @@
 
     <footer class="border-t border-edge py-12 bg-panel">
       <div
-        class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6"
+        class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left"
       >
-        <div class="text-center md:text-left">
+        <div>
           <p class="font-bold text-lg mb-1">NUB CSWC</p>
           <small class="text-muted block"
             >&copy; <span id="year">2026</span> All rights reserved.</small
@@ -657,7 +629,6 @@
           id="lightbox-caption"
           class="text-white/80 mt-6 text-sm font-medium tracking-wide"
         ></p>
-
         <button
           class="nav-btn absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-12 w-14 h-14 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-colors cursor-pointer"
           data-dir="-1"
