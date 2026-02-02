@@ -1,3 +1,4 @@
+// --- Data Sources ---
 const committeePhotos = [
   "471157659_122110132574662721_1167304852770550736_n.jpg",
   "471574375_122110132658662721_9022441313712698728_n.jpg",
@@ -16,7 +17,7 @@ const committeePhotos = [
 ];
 
 const leadershipRoles = [
-  "Honorable Board of trustees",
+  "Honorable Board of Trustees",
   "Honorable Adviser",
   "Honorable Adviser",
   "Honorable Mentor",
@@ -30,7 +31,6 @@ const leadershipRoles = [
   "Joint Office Secretary",
   "Joint Secretary",
   "Joint Organizing Secretary",
-  
 ];
 
 const committeeNames = [
@@ -87,25 +87,32 @@ const galleryImages = [
 const programs = [
   {
     title: "Health & Nutrition Outreach",
-    summary: "Mobile clinics delivering primary checkups and nutrition packs to underserved districts.",
-    poster: "public/program/480700997_122120615492662721_6068042123690854491_n.jpg",
+    summary:
+      "Mobile clinics delivering primary checkups and nutrition packs to underserved districts.",
+    poster:
+      "public/program/480700997_122120615492662721_6068042123690854491_n.jpg",
   },
   {
     title: "Eid Relief Drive",
-    summary: "Seasonal campaign distributing essential food baskets and clothing across Dhaka neighborhoods.",
+    summary:
+      "Seasonal campaign distributing essential food baskets and clothing across Dhaka neighborhoods.",
     poster: "public/program/EID.jpg",
   },
   {
     title: "March for Gaza Solidarity",
-    summary: "Campus-wide solidarity march amplifying humanitarian advocacy and fundraising.",
+    summary:
+      "Campus-wide solidarity march amplifying humanitarian advocacy and fundraising.",
     poster: "public/program/march_for_GAZA.jpg",
   },
   {
     title: "Winter Warmth Program",
-    summary: "Blanket and warm clothing distribution supporting northern districts through student volunteers.",
+    summary:
+      "Blanket and warm clothing distribution supporting northern districts through student volunteers.",
     poster: "public/program/winter.jpg",
   },
 ];
+
+// --- UI Logic ---
 
 const lightbox = {
   root: document.querySelector(".lightbox"),
@@ -125,12 +132,14 @@ function renderCommittee() {
 
   grid.innerHTML = committeeMembers
     .map(
-      (member) => `
-        <article class="reveal">
+      (member, index) => `
+        <article class="reveal" style="transition-delay: ${index * 50}ms">
           <img src="${member.photo}" alt="${member.name}" loading="lazy" />
-          <h3>${member.name}</h3>
-          <p>${member.role}</p>
-          <a class="view-pill" href="${member.photo}" target="_blank" rel="noreferrer">View</a>
+          
+          <div class="committee-info">
+            <h3>${member.name}</h3>
+            <p>${member.role}</p>
+          </div>
         </article>
       `,
     )
@@ -140,15 +149,11 @@ function renderCommittee() {
 function renderGallery() {
   const grid = document.getElementById("gallery-grid");
   if (!grid) return;
-  if (!galleryImages.length) {
-    grid.innerHTML = "<p>No gallery images available.</p>";
-    return;
-  }
 
   grid.innerHTML = galleryImages
     .map(
       (image, index) => `
-        <button class="reveal" data-index="${index}">
+        <button class="reveal" data-index="${index}" style="transition-delay: ${(index % 5) * 50}ms">
           <img src="${image.src}" alt="${image.caption}" loading="lazy" />
         </button>
       `,
@@ -166,10 +171,6 @@ function renderGallery() {
 function renderPrograms() {
   const list = document.getElementById("program-timeline");
   if (!list) return;
-  if (!programs.length) {
-    list.innerHTML = "<p>No program posters available.</p>";
-    return;
-  }
 
   list.innerHTML = programs
     .map(
@@ -187,6 +188,7 @@ function renderPrograms() {
     .join("");
 }
 
+// Lightbox Logic
 function openLightbox(index) {
   const item = galleryImages[index];
   if (!item) return;
@@ -196,11 +198,13 @@ function openLightbox(index) {
   lightbox.caption.textContent = item.caption;
   lightbox.root.classList.add("active");
   lightbox.root.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden"; // Prevent background scrolling
 }
 
 function closeLightbox() {
   lightbox.root.classList.remove("active");
   lightbox.root.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
 }
 
 function navigateLightbox(direction) {
@@ -210,24 +214,30 @@ function navigateLightbox(direction) {
 }
 
 function initLightboxControls() {
+  if (!lightbox.root) return;
+
   lightbox.closeBtn?.addEventListener("click", closeLightbox);
-  lightbox.root?.addEventListener("click", (event) => {
+  lightbox.root.addEventListener("click", (event) => {
     if (event.target === lightbox.root) closeLightbox();
   });
+
   document.querySelectorAll(".nav-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
       const dir = btn.dataset.dir === "next" ? 1 : -1;
       navigateLightbox(dir);
     });
   });
+
   document.addEventListener("keydown", (event) => {
-    if (!lightbox.root?.classList.contains("active")) return;
+    if (!lightbox.root.classList.contains("active")) return;
     if (event.key === "Escape") closeLightbox();
     if (event.key === "ArrowRight") navigateLightbox(1);
     if (event.key === "ArrowLeft") navigateLightbox(-1);
   });
 }
 
+// Animation Logic
 function initReveal() {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -238,10 +248,12 @@ function initReveal() {
         }
       });
     },
-    { threshold: 0.2 },
+    { threshold: 0.15, rootMargin: "0px 0px -50px 0px" },
   );
 
-  document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+  document
+    .querySelectorAll(".reveal")
+    .forEach((element) => observer.observe(element));
 }
 
 function initCounters() {
@@ -252,37 +264,75 @@ function initCounters() {
         if (!entry.isIntersecting) return;
         const target = entry.target;
         const finalValue = Number(target.dataset.count || 0);
-        const duration = 1600;
+        const duration = 2000;
         const startTime = performance.now();
+
         const animate = (time) => {
           const progress = Math.min((time - startTime) / duration, 1);
-          target.textContent = Math.floor(progress * finalValue).toString();
+          // Easing function for smoother stop
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          target.textContent = Math.floor(easeOut * finalValue).toString();
+
           if (progress < 1) requestAnimationFrame(animate);
         };
         requestAnimationFrame(animate);
         observer.unobserve(target);
       });
     },
-    { threshold: 1 },
+    { threshold: 0.5 },
   );
 
   counters.forEach((counter) => observer.observe(counter));
+}
+
+// Mobile Menu
+function initMobileMenu() {
+  const toggle = document.querySelector(".mobile-toggle");
+  const navWrapper = document.querySelector(".nav-wrapper");
+  const links = document.querySelectorAll("nav a");
+
+  if (!toggle || !navWrapper) return;
+
+  toggle.addEventListener("click", () => {
+    const isExpanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", !isExpanded);
+    navWrapper.classList.toggle("active");
+    toggle.innerHTML = isExpanded
+      ? '<i class="fa-solid fa-bars"></i>'
+      : '<i class="fa-solid fa-xmark"></i>';
+  });
+
+  // Close menu when clicking a link
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      navWrapper.classList.remove("active");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    });
+  });
 }
 
 function initThemeToggle() {
   const toggle = document.querySelector(".theme-toggle");
   if (!toggle) return;
   const root = document.documentElement;
+
+  // Check system preference if no stored theme
+  const systemPrefersDark = window.matchMedia(
+    "(prefers-color-scheme: dark)",
+  ).matches;
   const stored = localStorage.getItem("theme");
-  if (stored === "dark") {
+
+  if (stored === "dark" || (!stored && systemPrefersDark)) {
     root.setAttribute("data-theme", "dark");
   }
 
   const updateLabel = () => {
     const isDark = root.getAttribute("data-theme") === "dark";
     toggle.setAttribute("aria-pressed", String(isDark));
-    toggle.querySelector(".toggle-label").textContent = isDark ? "Dark " : "Light ";
-    toggle.querySelector(".toggle-icon i").className = isDark ? "fa-solid fa-moon" : "fa-solid fa-sun";
+    toggle.querySelector(".toggle-icon i").className = isDark
+      ? "fa-solid fa-sun"
+      : "fa-solid fa-moon";
   };
 
   updateLabel();
@@ -308,6 +358,7 @@ function init() {
   initReveal();
   initCounters();
   initThemeToggle();
+  initMobileMenu();
 }
 
 document.addEventListener("DOMContentLoaded", init);

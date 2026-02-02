@@ -11,15 +11,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-yH1Y8FkRAwOB1p5MNDoAuCEi0aKBslZx2drXr/7Lr1gChX2NDSSSXqoQZnQEqplLWYwgd0eoOZgdK0O5nqU9sg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -28,41 +25,61 @@
     <div class="page">
       <header class="top-bar">
         <div class="brand">
-          <img src="public/NCSW%20logo.jpg" alt="NUB CSWC logo" loading="lazy" />
-          <div>
+          <img
+            src="public/NCSW%20logo.jpg"
+            alt="NUB CSWC logo"
+            loading="lazy"
+          />
+          <div class="brand-text">
             <p>NUB Central</p>
             <strong>Social Welfare Club</strong>
           </div>
         </div>
-        <nav>
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#committee">Committee</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#programs">Programs</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <div class="header-actions">
-          <button class="theme-toggle" type="button" aria-pressed="false">
-            <span class="toggle-icon" aria-hidden="true"><i class="fa-solid fa-moon"></i></span>
-            <span class="toggle-label">Dark Mode</span>
-          </button>
-          <a class="cta ghost" href="#contact">Get Involved</a>
+
+        <button
+          class="mobile-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="nav-wrapper">
+          <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#committee">Committee</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#programs">Programs</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <div class="header-actions">
+            <button class="theme-toggle" type="button" aria-pressed="false">
+              <span class="toggle-icon" aria-hidden="true"
+                ><i class="fa-solid fa-moon"></i
+              ></span>
+              <span class="visually-hidden">Toggle Dark Mode</span>
+            </button>
+            <a class="cta ghost small-hidden" href="#contact">Get Involved</a>
+          </div>
         </div>
       </header>
 
       <main>
         <section class="hero" id="home">
-          <div class="hero-copy">
+          <div class="hero-copy reveal">
             <p class="badge">Serving humanity with responsibility</p>
-            <h1>Empowering students to design welfare solutions with compassion.</h1>
-            <p>
-              The club coordinates rapid relief, education access, mental health support, and advocacy campaigns in
-              partnership with communities across Bangladesh.
+            <h1>Empowering students to design welfare solutions.</h1>
+            <p class="hero-desc">
+              The club coordinates rapid relief, education access, mental health
+              support, and advocacy campaigns in partnership with communities
+              across Bangladesh.
             </p>
             <div class="hero-actions">
               <a class="cta filled" href="#programs">Explore Programs</a>
-              <a class="cta link" href="#gallery">View Impact</a>
+              <a class="cta link" href="#gallery"
+                >View Impact <i class="fa-solid fa-arrow-right"></i
+              ></a>
             </div>
             <div class="hero-stats">
               <article>
@@ -79,19 +96,27 @@
               </article>
             </div>
           </div>
-          <div class="hero-visual">
+          <div class="hero-visual reveal delay-1">
             <div class="hero-card">
-              <small>Current focus</small>
+              <div class="card-header">
+                <span class="status-dot"></span>
+                <small>Current focus</small>
+              </div>
               <h3>Winter Warmth Drive</h3>
-              <p>Delivering blankets, nutrition packs, and medical support to rural districts.</p>
-              <ul>
-                <li>Real-time volunteer shifts</li>
-                <li>Logistics hotline</li>
-                <li>Impact reporting desk</li>
+              <p>
+                Delivering blankets, nutrition packs, and medical support to
+                rural districts.
+              </p>
+              <ul class="feature-list">
+                <li>
+                  <i class="fa-solid fa-check"></i> Real-time volunteer shifts
+                </li>
+                <li><i class="fa-solid fa-check"></i> Logistics hotline</li>
+                <li><i class="fa-solid fa-check"></i> Impact reporting desk</li>
               </ul>
             </div>
             <div class="hero-image">
-              <div class="hero-overlay">
+              <div class="hero-overlay glass">
                 <p>Community Dispatch</p>
                 <strong>Live | 08:30 PM</strong>
               </div>
@@ -100,123 +125,191 @@
         </section>
 
         <section class="section about" id="about">
-          <div class="section-heading">
+          <div class="section-heading reveal">
             <p class="eyebrow">About the club</p>
-            <h2>Humanitarian leadership rooted in empathy, data, and accountability.</h2>
+            <h2>Humanitarian leadership rooted in empathy.</h2>
             <p>
-              We mobilize campus resources to co-create welfare initiatives: emergency response, seasonal relief,
-              digital literacy, health camps, advocacy marches, and psychosocial care.
+              We mobilize campus resources to co-create welfare initiatives:
+              emergency response, seasonal relief, digital literacy, health
+              camps, advocacy marches, and psychosocial care.
             </p>
           </div>
           <div class="about-grid">
-            <article>
+            <article class="reveal">
+              <div class="icon-box">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+              </div>
               <h3>Mission</h3>
-              <p>Champion dignity for marginalized communities through sustained student-led action.</p>
+              <p>
+                Champion dignity for marginalized communities through sustained
+                student-led action.
+              </p>
             </article>
-            <article>
+            <article class="reveal delay-1">
+              <div class="icon-box">
+                <i class="fa-solid fa-scale-balanced"></i>
+              </div>
               <h3>Values</h3>
-              <p>Integrity, transparency, inclusive collaboration, and a culture of care.</p>
+              <p>
+                Integrity, transparency, inclusive collaboration, and a culture
+                of care.
+              </p>
             </article>
-            <article>
+            <article class="reveal delay-2">
+              <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
               <h3>Impact</h3>
-              <p>Emergency relief cells, winter warmth drives, health camps, and advocacy coalitions.</p>
+              <p>
+                Emergency relief cells, winter warmth drives, health camps, and
+                advocacy coalitions.
+              </p>
             </article>
           </div>
         </section>
 
         <section class="section committee" id="committee">
-          <div class="section-heading">
+          <div class="section-heading reveal">
             <p class="eyebrow">Leadership</p>
-            <h2>Executive Committee & Coordinators</h2>
-            <p>Images are sourced automatically from the committee member folder for effortless updates.</p>
+            <h2>Executive Committee</h2>
+            <p>Meet the dedicated team driving our initiatives forward.</p>
           </div>
           <div id="committee-grid" class="committee-grid"></div>
         </section>
 
         <section class="section gallery" id="gallery">
-          <div class="section-heading">
+          <div class="section-heading reveal">
             <p class="eyebrow">Gallery</p>
             <h2>Moments from the field</h2>
-            <p>Tap any card to view full resolution photography from distribution drives and advocacy marches.</p>
+            <p>Tap any card to view full resolution photography.</p>
           </div>
           <div id="gallery-grid" class="gallery-grid"></div>
         </section>
 
         <section class="section programs" id="programs">
-          <div class="section-heading">
+          <div class="section-heading reveal">
             <p class="eyebrow">Programs</p>
-            <h2>Flagship welfare initiatives</h2>
-            <p>Program cards pull directly from the posters in the program folder.</p>
+            <h2>Flagship initiatives</h2>
+            <p>Our ongoing and upcoming major welfare projects.</p>
           </div>
           <div id="program-timeline" class="program-timeline"></div>
         </section>
 
         <section class="section contact" id="contact">
           <div class="contact-shell">
-            <div class="contact-text">
+            <div class="contact-text reveal">
               <p class="eyebrow">Contact & location</p>
               <h2>Reach the welfare desk</h2>
               <p>
-                Coordinate relief, volunteer, or request support through the club&apos;s central desk. We respond within
-                one business day.
+                Coordinate relief, volunteer, or request support through the
+                club&apos;s central desk. We respond within one business day.
               </p>
             </div>
-            <div class="contact-grid">
-              <article>
-                <span class="icon">
-                  <img src="public/icon/2991231.png" alt="Address icon" loading="lazy" />
-                </span>
-                <div>
-                  <h3>Address</h3>
-                  <p>Ashiyan City Road, Dhaka, Bangladesh</p>
-                </div>
-              </article>
-              <article>
-                <span class="icon">
-                  <img src="public/icon/Gmail_Logo_512px.png" alt="Email icon" loading="lazy" />
-                </span>
-                <div>
-                  <h3>Email</h3>
-                  <a href="mailto:nubcentralsocialwelfareclub@gmail.com">nubcentralsocialwelfareclub@gmail.com</a>
-                </div>
-              </article>
-              <article>
-                <span class="icon">
-                  <img src="public/icon/Facebook_Logo_2023.png" alt="Facebook icon" loading="lazy" />
-                </span>
-                <div>
-                  <h3>Facebook</h3>
-                    <a href="https://www.facebook.com/profile.php?id=61569881647847" target="_blank" rel="noreferrer"
-                      >NUB Central Social Welfare Club - NCSW </a
+            <div class="contact-wrapper">
+              <div class="contact-grid">
+                <article class="reveal">
+                  <span class="icon">
+                    <img
+                      src="public/icon/2991231.png"
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                  </span>
+                  <div>
+                    <h3>Address</h3>
+                    <p>Ashiyan City Road, Dhaka, Bangladesh</p>
+                  </div>
+                </article>
+                <article class="reveal delay-1">
+                  <span class="icon">
+                    <img
+                      src="public/icon/Gmail_Logo_512px.png"
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                  </span>
+                  <div>
+                    <h3>Email</h3>
+                    <a href="mailto:nubcentralsocialwelfareclub@gmail.com"
+                      >nubcentralsocialwelfareclub@gmail.com</a
                     >
-                </div>
-              </article>
-            </div>
-            <div class="contact-cta">
-              <p>Share project requirements, request emergency relief, or onboard volunteers using the link below.</p>
-              <a class="cta filled" href="mailto:nubcentralsocialwelfareclub@gmail.com">Schedule a briefing</a>
+                  </div>
+                </article>
+                <article class="reveal delay-2">
+                  <span class="icon">
+                    <img
+                      src="public/icon/Facebook_Logo_2023.png"
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                  </span>
+                  <div>
+                    <h3>Facebook</h3>
+                    <a
+                      href="https://www.facebook.com/profile.php?id=61569881647847"
+                      target="_blank"
+                      rel="noreferrer"
+                      >NUB Central Social Welfare Club</a
+                    >
+                  </div>
+                </article>
+              </div>
+              <div class="contact-cta reveal">
+                <p>Ready to make a difference?</p>
+                <h3>Join the movement today.</h3>
+                <a
+                  class="cta filled"
+                  href="mailto:nubcentralsocialwelfareclub@gmail.com"
+                  >Schedule a briefing</a
+                >
+              </div>
             </div>
           </div>
         </section>
       </main>
 
       <footer class="site-footer">
-        <div>
-          <p>Developed by <a href="https://neurootix.com/" target="_blank" rel="noreferrer">Neurootix</a></p>
-          <small><i>A VIRTUAL DEEP TECH FIRM DRIVING FUTURE INNOVATION</i></small>
+        <div class="footer-content">
+          <div class="footer-brand">
+            <p class="footer-logo-text">NUB CSWC</p>
+            <small>&copy; 2026. All rights reserved.</small>
+          </div>
+          <div class="footer-credits">
+            <p>
+              Developed by
+              <a href="https://neurootix.com/" target="_blank" rel="noreferrer"
+                >Neurootix</a
+              >
+            </p>
+            <small
+              ><i>A VIRTUAL DEEP TECH FIRM DRIVING FUTURE INNOVATION</i></small
+            >
+          </div>
         </div>
-        <img src="public/neurootix-logo.png" alt="Neurootix logo" loading="lazy" />
+        <img
+          src="public/neurootix-logo.png"
+          alt="Neurootix logo"
+          class="neurootix-logo"
+          loading="lazy"
+        />
       </footer>
     </div>
 
     <div class="lightbox" aria-hidden="true">
-      <button class="lightbox-close" aria-label="Close gallery preview">&times;</button>
+      <button class="lightbox-close" aria-label="Close gallery preview">
+        &times;
+      </button>
       <div class="lightbox-frame">
         <img src="" alt="Gallery preview" />
         <p class="lightbox-caption"></p>
         <div class="lightbox-nav">
-          <button class="nav-btn" data-dir="prev">Prev</button>
-          <button class="nav-btn" data-dir="next">Next</button>
+          <button class="nav-btn" data-dir="prev" aria-label="Previous image">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button class="nav-btn" data-dir="next" aria-label="Next image">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
         </div>
       </div>
     </div>
